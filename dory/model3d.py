@@ -196,8 +196,13 @@ class Hamiltonian3D:
         For spinless indices i, return (up_idx, down_idx) in the orbital-major layout,
         mapping i -> [2*i (↑), 2*i+1 (↓)].
         """
+        #sp3d5 basis 
         up   = [1, 2, 3, 11, 12, 13]
         down = [21, 22, 23, 31, 32, 33]
+
+        #sp3 basis 
+        #up = [1, 2, 3, 5, 6, 7]
+        #down = [9, 10, 11, 13, 14, 15]
 
         logger.debug("the used pspin incidies up then down are %s, %s", up, down)
 
@@ -279,9 +284,9 @@ class Hamiltonian3D:
         if np.array_equal(k, np.zeros(3)):
             print("Saving at Gamma point")
             print(k)
-            np.savetxt("hamiltonian_real.csv", H.real, delimiter=",", fmt="%.10g")
-            np.savetxt("hamiltonian_imag.csv", H.imag, delimiter=",", fmt="%.10g")
-            np.savetxt("hamiltonian_mag.csv", np.abs(H), delimiter=",", fmt="%.10g")
+            #np.savetxt("hamiltonian_real.csv", H.real, delimiter=",", fmt="%.10g")
+            #np.savetxt("hamiltonian_imag.csv", H.imag, delimiter=",", fmt="%.10g")
+            #np.savetxt("hamiltonian_mag.csv", np.abs(H), delimiter=",", fmt="%.10g")
 
             
         w, v = np.linalg.eigh(H)
