@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<dory>
+  <basis> sp3d5s* </basis>
+  <lattice_constant units="nm">0.54509</lattice_constant>
+  <atoms>
+    <atom id="A" pos="0.0 0.0 0.0"/>
+    <atom id="B" pos="0.13627 0.13627 0.13627"/>
+  </atoms>
+  <neighbors>
+    <bond from="A" to="B" delta=" 0.13627  0.13627  0.13627"/>
+    <bond from="A" to="B" delta=" 0.13627 -0.13627 -0.13627"/>
+    <bond from="A" to="B" delta="-0.13627  0.13627 -0.13627"/>
+    <bond from="A" to="B" delta="-0.13627 -0.13627  0.13627"/>
+  </neighbors>
+  <onsite>
+    <A s="-0.4005" p="6.3844" d_t2g="14.0431" d_eg="14.0431" sstar="20.3952"/>
+    <B s="-5.3379" p="3.3453" d_t2g="14.0431" d_eg="14.0431" sstar="20.3952"/>
+  </onsite>
+  <sk builtin="true">
+    <AB
+      ss_sigma="-1.7049"
+      sstar_sstar_sigma="-3.5704"
+      sstar_s_sigma="-1.6034"
+      s_sstar_sigma="-1.6358"
+      sp_sigma="2.8074"
+      ps_sigma="2.98"
+      sstar_p_sigma="2.3886"
+      p_sstar_sigma="2.1482"
+      sd_sigma="-2.784"
+      ds_sigma="-2.3143"
+      sstar_d_sigma="0.6426"
+      d_sstar_sigma="-0.6589"
+      pp_sigma="4.1988"
+      pp_pi="-1.434"
+      pd_sigma="-1.7911"
+      pd_pi="1.8574"
+      dp_sigma="-1.8106"
+      dp_pi="2.1308"
+      dd_sigma="-1.2268"
+      dd_pi="2.2752"
+      dd_delta="-2.0124"
+    />
+    <BA
+      ss_sigma="-1.7049"
+      sstar_sstar_sigma="-3.5704"
+      sstar_s_sigma="-1.6358"
+      s_sstar_sigma="-1.6034"
+      sp_sigma="2.98"
+      ps_sigma="2.8074"
+      sstar_p_sigma="2.1482"
+      p_sstar_sigma="2.3886"
+      sd_sigma="-2.3143"
+      ds_sigma="-2.784"
+      sstar_d_sigma="-0.6589"
+      d_sstar_sigma="0.6426"
+      pp_sigma="4.1988"
+      pp_pi="-1.434"
+      pd_sigma="-1.8106"
+      pd_pi="2.1308"
+      dp_sigma="-1.7911"
+      dp_pi="1.8574"
+      dd_sigma="-1.2268"
+      dd_pi="2.2752"
+      dd_delta="-2.0124"
+    />
+  </sk>
+  <spin enable="true"
+        Delta_a_over_3="0.0301"
+        Delta_c_over_3="0.0408"
+        Delta_d_a="0.0"
+        Delta_d_c="0.0"/>
+</dory>

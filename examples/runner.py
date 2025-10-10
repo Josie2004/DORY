@@ -113,7 +113,7 @@ def main():
 
     for b in range(nb):
         if b % 2 == 0:  # even index
-            plt.plot(kd, Evals[:, b], "b-", lw=1)
+            plt.plot(kd, Evals[:, b], "b", lw=1)
         else:           # odd index
             plt.plot(kd, Evals[:, b], "r--", lw=1)
 
