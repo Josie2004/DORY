@@ -4,25 +4,25 @@ from .xmlio import DoryConfig, load_config
 from .sk import SKParams, sk_block_sp3d5
 from .model3d import Hamiltonian3D
 
-import logging
+# import logging
 
-# Configure a module-level logger
-logger = logging.getLogger("dory")
-logger.setLevel(logging.DEBUG)  # or INFO for less verbosity
+# # Configure a module-level logger
+# logger = logging.getLogger("dory")
+# logger.setLevel(logging.DEBUG)  # or INFO for less verbosity
 
-# File handler (logs go to dory.log)
-fh = logging.FileHandler("dory.log")
-fh.setLevel(logging.DEBUG)
+# # File handler (logs go to dory.log)
+# fh = logging.FileHandler("dory.log")
+# fh.setLevel(logging.DEBUG)
 
-# Console handler (optional, prints to stdout)
-ch = logging.StreamHandler()
-ch.setLevel(logging.INFO)
+# # Console handler (optional, prints to stdout)
+# ch = logging.StreamHandler()
+# ch.setLevel(logging.INFO)
 
-# Format
-formatter = logging.Formatter("%(asctime)s [%(levelname)s] %(name)s: %(message)s")
-fh.setFormatter(formatter)
-ch.setFormatter(formatter)
+# # Format
+# formatter = logging.Formatter("%(asctime)s [%(levelname)s] %(name)s: %(message)s")
+# fh.setFormatter(formatter)
+# ch.setFormatter(formatter)
 
-# Add handlers
-logger.addHandler(fh)
-logger.addHandler(ch)
+# # Add handlers
+# logger.addHandler(fh)
+# logger.addHandler(ch)
