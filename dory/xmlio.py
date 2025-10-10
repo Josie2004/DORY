@@ -1,6 +1,6 @@
 # dory/xmlio.py
 from __future__ import annotations
-from dataclasses import dataclass
+from dataclasses import dataclass, field
 from typing import List, Dict, Optional
 import xml.etree.ElementTree as ET
 import numpy as np
@@ -46,7 +46,21 @@ class SKParamsBlock:
     dd_sigma: float = 0.0
     dd_pi: float = 0.0
     dd_delta: float = 0.0
+    sstar_sstar_sigma: float = 0.0
+    sstar_s_sigma: float = 0.0
+    s_sstar_sigma: float = 0.0
+    sstar_p_sigma: float = 0.0
+    p_sstar_sigma: float = 0.0
+    sstar_d_sigma: float = 0.0
+    d_sstar_sigma: float = 0.0
 
+@dataclass
+class SpinParams:
+    enable: bool = False
+    Delta_a_over_3: float = 0.0   # SOC λ_p on A site
+    Delta_c_over_3: float = 0.0   # SOC λ_p on B site
+    Delta_d_a: float = 0.0        # optional SOC λ_d on A site
+    Delta_d_c: float = 0.0        # optional SOC λ_d on B site
 
 @dataclass
 class DoryConfig:
@@ -58,7 +72,9 @@ class DoryConfig:
     sk_AB: SKParamsBlock
     sk_BA: SKParamsBlock
     use_builtin_sk: bool = True
-    lattice_constant: Optional[float] = None  # <--- now included
+    lattice_constant: Optional[float] = None
+    spin: SpinParams = field(default_factory=SpinParams)  
+
 
 
 # ---------------- helpers ----------------
@@ -95,10 +111,16 @@ def _parse_sk_block(elem: ET.Element) -> SKParamsBlock:
         dd_sigma=_get_attr_float(elem, "dd_sigma"),
         dd_pi=_get_attr_float(elem, "dd_pi"),
         dd_delta=_get_attr_float(elem, "dd_delta"),
+        sstar_sstar_sigma=_get_attr_float(elem, "sstar_sstar_sigma"),
+        sstar_s_sigma=_get_attr_float(elem, "sstar_s_sigma"),
+        s_sstar_sigma=_get_attr_float(elem, "s_sstar_sigma"),
+        sstar_p_sigma=_get_attr_float(elem, "sstar_p_sigma"),
+        p_sstar_sigma=_get_attr_float(elem, "p_sstar_sigma"),
+        sstar_d_sigma=_get_attr_float(elem, "sstar_d_sigma"),
+        d_sstar_sigma=_get_attr_float(elem, "d_sstar_sigma"),
     )
     logger.debug("Parsed SK block: %s", block)
     return block
-
 
 # ---------------- main ----------------
 
@@ -119,6 +141,9 @@ def load_config(xml_path: str) -> DoryConfig:
         basis = ["s", "px", "py", "pz"]
     elif basis_items == ["sp3d5"]:
         basis = ["s", "px", "py", "pz", "dxy", "dyz", "dxz", "dx2-y2", "dz2"]
+    elif basis_items == ["sp3d5s*"]:
+        basis = ["s", "px", "py", "pz",
+                "dxy", "dyz", "dxz", "dx2-y2", "dz2", "s*"]
     else:
         basis = basis_items
     logger.info("Basis orbitals: %s", basis)
@@ -151,12 +176,12 @@ def load_config(xml_path: str) -> DoryConfig:
         raise ValueError("Need <onsite><A .../><B .../></onsite> with attributes.")
     onsite_A = {}
     onsite_B = {}
-    for key in ("s", "p", "d_t2g", "d_eg"):
+    for key in ("s", "sstar", "p", "d_t2g", "d_eg"):  
         if key in eOnA.attrib:
             onsite_A[key] = float(eOnA.attrib[key])
         if key in eOnB.attrib:
             onsite_B[key] = float(eOnB.attrib[key])
-    logger.info("Onsite A=%s, Onsite B=%s", onsite_A, onsite_B)
+
 
     # SK (heteropolar)
     eAB = root.find("./sk/AB")
@@ -166,6 +191,26 @@ def load_config(xml_path: str) -> DoryConfig:
         raise ValueError("Need <sk><AB .../><BA .../></sk> blocks with SK parameters.")
     sk_AB = _parse_sk_block(eAB)
     sk_BA = _parse_sk_block(eBA)
+
+    # Spin / SOC parameters (optional block)
+    spin_params = SpinParams()
+    eSpin = root.find("./spin")
+    if eSpin is not None:
+        # Enable flag
+        if "enable" in eSpin.attrib:
+            spin_params.enable = eSpin.attrib["enable"].lower() in ("true","1","yes")
+
+        # p-SOC constants
+        if "Delta_a_over_3" in eSpin.attrib:
+            spin_params.Delta_a_over_3 = float(eSpin.attrib["Delta_a_over_3"])
+        if "Delta_c_over_3" in eSpin.attrib:
+            spin_params.Delta_c_over_3 = float(eSpin.attrib["Delta_c_over_3"])
+
+        # d-SOC constants (optional)
+        if "Delta_d_a" in eSpin.attrib:
+            spin_params.Delta_d_a = float(eSpin.attrib["Delta_d_a"])
+        if "Delta_d_c" in eSpin.attrib:
+            spin_params.Delta_d_c = float(eSpin.attrib["Delta_d_c"])
 
     # builtin flag
     use_builtin = True
@@ -195,6 +240,8 @@ def load_config(xml_path: str) -> DoryConfig:
         sk_BA=sk_BA,
         use_builtin_sk=use_builtin,
         lattice_constant=lattice_constant,
+        spin=spin_params,    
     )
+
     logger.info("DORY config loaded successfully.")
     return config

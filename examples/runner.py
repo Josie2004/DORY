@@ -78,11 +78,23 @@ def main():
         onsite_A=cfg.onsite.A,
         onsite_B=cfg.onsite.B,
         sk_params=sk,
+        enable_spin=cfg.spin.enable,
+        Delta_a_over_3=cfg.spin.Delta_a_over_3,
+        Delta_c_over_3=cfg.spin.Delta_c_over_3,
+        Delta_d_a=cfg.spin.Delta_d_a,
+        Delta_d_c=cfg.spin.Delta_d_c,
     )
 
+    print(ham)
     # ==== Build path ====
     kf, kc, kd, ticks = interpolate_path(HS_frac, args.labels, args.steps, a_nm)
-    nb = len(cfg.basis) * 2
+    
+    # work out number of bands correctly
+    n_orb_per_site = len(cfg.basis)
+    n_sites = 2
+    n_spins = 2 if cfg.spin.enable else 1
+    nb = n_sites * n_orb_per_site * n_spins
+
     Evals = np.zeros((kc.shape[0], nb))
     for i, k in enumerate(kc):
         w, _ = ham.solve_k(k)
@@ -98,14 +110,22 @@ def main():
 
     # ==== Plot ====
     plt.figure(figsize=(9, 5.2))
+
     for b in range(nb):
-        plt.plot(kd, Evals[:, b], "b-", lw=1)
+        if b % 2 == 0:  # even index
+            plt.plot(kd, Evals[:, b], "b-", lw=1)
+        else:           # odd index
+            plt.plot(kd, Evals[:, b], "r--", lw=1)
+
     for idx in ticks:
         plt.axvline(kd[idx], color="k", ls="--", lw=0.5)
+
     plt.xticks([kd[idx] for idx in ticks], args.labels)
-    plt.xlabel("k-path"); plt.ylabel("Energy (eV)")
-    plt.title(f"{name} bandstructure (NN sp³d⁵ TB, a={a_nm:.3f} nm)")
+    plt.xlabel("k-path")
+    plt.ylabel("Energy (eV)")
+    plt.title(f"{name} bandstructure (NN sp3d5s* TB, a={a_nm:.3f} nm)")
     plt.tight_layout()
+
 
     if args.save:
         plt.savefig(outdir / f"{name}_bands.png", dpi=180)
