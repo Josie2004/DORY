@@ -60,6 +60,14 @@ def sk_block_sp3d5(
     V_dps, V_dpp      = g("dp_sigma"), g("dp_pi")
     V_dds, V_ddp, V_ddd = g("dd_sigma"), g("dd_pi"), g("dd_delta")
 
+    # parameters for s start orbitals 
+    V_sstarsstar = g("sstar_sstar_sigma")
+    V_sstars     = g("sstar_s_sigma")   
+    V_sstarp     = g("sstar_p_sigma")
+    V_psstar     = g("p_sstar_sigma")
+    V_sstard     = g("sstar_d_sigma")
+    V_dsstar     = g("d_sstar_sigma")
+
     nb = len(basis)
     idx = {o: i for i, o in enumerate(basis)}
     has = set(basis).__contains__
@@ -68,6 +76,11 @@ def sk_block_sp3d5(
     # s–s
     if has("s"):
         M[idx["s"], idx["s"]] += V_ss
+
+    # s-sstar
+    if has("s*"):
+        M[idx["s*"], idx["s*"]] += V_sstarsstar
+
 
     # s–p and p–s (minus from p parity on the bra side)
     pnames = [o for o in ("px","py","pz") if has(o)]
@@ -79,6 +92,22 @@ def sk_block_sp3d5(
             c = comps[p]
             M[s,  ip] +=  V_sp * c
             M[ip, s ] += -V_ps * c
+
+    # s-sstar
+    if has("s*") and has("s"):
+        M[idx["s*"], idx["s"]] += V_sstars
+        M[idx["s"], idx["s*"]] += V_sstars 
+
+    # p -sstar 
+    if has("s*") and pnames:
+        sst = idx["s*"]
+        comps = {"px": l, "py": m, "pz": n}
+        for p in pnames:
+            ip = idx[p]
+            c = comps[p]
+            M[sst, ip] += V_sstarp * c
+            M[ip, sst] += -V_psstar * c   
+
 
     # p–p: (Vσ − Vπ) d d^T + Vπ I
     if len(pnames) == 3:
@@ -108,6 +137,22 @@ def sk_block_sp3d5(
             c = coeff[d]
             M[s,      idx[d]] += V_sd * c
             M[idx[d], s     ] += V_ds * c
+
+    # sstar - d
+    if has("s*") and dnames:
+        sst = idx["s*"]
+        coeff = {
+            "dxy":    sq3*l*m,
+            "dyz":    sq3*m*n,
+            "dxz":    sq3*l*n,
+            "dx2-y2": 0.5*sq3*delta_lm,
+            "dz2":    t1,
+        }
+        for d in dnames:
+            c = coeff[d]
+            M[sst,    idx[d]] += V_sstard * c
+            M[idx[d], sst   ] += V_dsstar * c
+
 
     # helper to build a p–d angular block for given (Vσ,Vπ)
     def pd_block(Vsig: float, Vpi: float) -> np.ndarray:
