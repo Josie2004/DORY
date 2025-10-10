@@ -1,4 +1,4 @@
-# dory/orbitals.py
+    # dory/orbitals.py
 from __future__ import annotations
 from dataclasses import dataclass
 from typing import List, Dict
@@ -7,6 +7,7 @@ import logging
 logger = logging.getLogger("dory.orbitals")
 
 ALL_D_ORBS = ["dxy", "dyz", "dxz", "dx2-y2", "dz2"]
+ALL_S_ORBS = ["s", "s*"]   
 
 @dataclass
 class OrbitalOrder:
@@ -51,6 +52,9 @@ def group_name(orb: str) -> str:
         return "d_t2g"
     if orb in ("dx2-y2", "dz2"):
         return "d_eg"
+    if orb == "s*":
+        return "sstar"   
+
 
     logger.error("Unknown orbital encountered: %s", orb)
     raise ValueError(f"Unknown orbital {orb}")
