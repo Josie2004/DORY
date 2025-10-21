@@ -15,6 +15,7 @@ The first version is focused on 3D **sp³d⁵** and **sp³** models defined in s
   - Onsite energies
   - Slater–Koster (SK) integrals
   - Lattice constant
+  - spin orbit coupling
 - Build the Hamiltonian for a 2-atom primitive cell:
 
   ![Hamiltonian](https://latex.codecogs.com/svg.latex?H%28%5Cmathbf%7Bk%7D%29%3D%5Cbegin%7Bbmatrix%7DH_%7BAA%7D%26H_%7BAB%7D%28%5Cmathbf%7Bk%7D%29%5C%5CH_%7BAB%7D%5E%7B%5Cdagger%7D%28%5Cmathbf%7Bk%7D%29%26H_%7BBB%7D%5Cend%7Bbmatrix%7D)
@@ -26,6 +27,8 @@ The first version is focused on 3D **sp³d⁵** and **sp³** models defined in s
 ---
 
 ## Example XML: Zincblende Si (sp³d⁵)
+Example implementation: py -m examples.runner examples\zincblende_Si.xml --show --save --spin 
+- The spin flag allows the simulation to include spin orbit coupling. Without this flag, SO coupling is not included. 
 
 ```xml
 <dory>
@@ -63,6 +66,13 @@ The first version is focused on 3D **sp³d⁵** and **sp³** models defined in s
         dp_sigma="1.127068"  dp_pi="2.383978"
         dd_sigma="-1.408578" dd_pi="2.284472" dd_delta="-1.541821"/>
   </sk>
+
+  <spin 
+    Delta_a_over_3="0.021926" 
+    Delta_c_over_3="0.021926"
+    Delta_d_a="0.0" 
+    Delta_d_c="0.0"/>
+
 </dory>
 ```
 

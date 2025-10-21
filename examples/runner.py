@@ -63,6 +63,8 @@ def main():
                         help="Show interactive matplotlib window")
     parser.add_argument("--labels", nargs="+", default=default_path,
                         help="Path labels sequence (default FCC loop)")
+    parser.add_argument("--spin", action="store_true",
+                        help="Enable spin-orbit coupling")
     args = parser.parse_args()
 
     # ==== Load config ====
@@ -78,7 +80,7 @@ def main():
         onsite_A=cfg.onsite.A,
         onsite_B=cfg.onsite.B,
         sk_params=sk,
-        enable_spin=cfg.spin.enable,
+        enable_spin=args.spin,
         Delta_a_over_3=cfg.spin.Delta_a_over_3,
         Delta_c_over_3=cfg.spin.Delta_c_over_3,
         Delta_d_a=cfg.spin.Delta_d_a,
@@ -92,7 +94,7 @@ def main():
     # work out number of bands correctly
     n_orb_per_site = len(cfg.basis)
     n_sites = 2
-    n_spins = 2 if cfg.spin.enable else 1
+    n_spins = 2 if args.spin else 1
     nb = n_sites * n_orb_per_site * n_spins
 
     Evals = np.zeros((kc.shape[0], nb))
