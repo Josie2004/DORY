@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<dory>
+  <basis> sp3d5s* </basis>
+  <lattice_constant units="nm">0.60583</lattice_constant>
+  <atoms>
+    <atom id="A" pos="0.0 0.0 0.0"/>
+    <atom id="B" pos="0.15146 0.15146 0.15146"/>
+  </atoms>
+  <neighbors>
+    <bond from="A" to="B" delta=" 0.15146  0.15146  0.15146"/>
+    <bond from="A" to="B" delta=" 0.15146 -0.15146 -0.15146"/>
+    <bond from="A" to="B" delta="-0.15146  0.15146 -0.15146"/>
+    <bond from="A" to="B" delta="-0.15146 -0.15146  0.15146"/>
+  </neighbors>
+  <onsite>
+    <A s="0.3333" p="6.4939" d_t2g="12.4693" d_eg="12.4693" sstar="17.8411"/>
+    <B s="-5.9801" p="3.5813" d_t2g="12.4693" d_eg="12.4693" sstar="17.8411"/>
+  </onsite>
+  <sk builtin="true">
+    <AB
+      ss_sigma="-1.4789"
+      sstar_sstar_sigma="-3.8514"
+      sstar_s_sigma="-2.132"
+      s_sstar_sigma="-1.2219"
+      sp_sigma="2.3159"
+      ps_sigma="2.8006"
+      sstar_p_sigma="2.6467"
+      p_sstar_sigma="1.9012"
+      sd_sigma="-2.5828"
+      ds_sigma="-2.4499"
+      sstar_d_sigma="0.8497"
+      d_sstar_sigma="-0.8371"
+      pp_sigma="4.1188"
+      pp_pi="-1.3687"
+      pd_sigma="-2.1222"
+      pd_pi="1.7106"
+      dp_sigma="-2.0584"
+      dp_pi="1.8364"
+      dd_sigma="-1.2009"
+      dd_pi="2.1206"
+      dd_delta="-1.7788"
+    />
+    <BA
+      ss_sigma="-1.4789"
+      sstar_sstar_sigma="-3.8514"
+      sstar_s_sigma="-1.2219"
+      s_sstar_sigma="-2.132"
+      sp_sigma="2.8006"
+      ps_sigma="2.3159"
+      sstar_p_sigma="1.9012"
+      p_sstar_sigma="2.6467"
+      sd_sigma="-2.4499"
+      ds_sigma="-2.5828"
+      sstar_d_sigma="-0.8371"
+      d_sstar_sigma="0.8497"
+      pp_sigma="4.1188"
+      pp_pi="-1.3687"
+      pd_sigma="-2.0584"
+      pd_pi="1.8364"
+      dp_sigma="-2.1222"
+      dp_pi="1.7106"
+      dd_sigma="-1.2009"
+      dd_pi="2.1206"
+      dd_delta="-1.7788"
+    />
+  </sk>
+  <spin enable="true"
+        Delta_a_over_3="0.1763"
+        Delta_c_over_3="0.1248"
+        Delta_d_a="0.0"
+        Delta_d_c="0.0"/>
+</dory>

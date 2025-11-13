@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<dory>
+  <!-- Orbital set per site -->
+  <basis> sp3d5 </basis>
+
+  <!-- Two-atom unit cell (conventional cubic rocksalt) -->
+  <atoms>
+    <atom id="A" pos="0.0 0.0 0.0"/>           <!-- Pb at τ_A -->
+    <atom id="B" pos="0.3231 0.0 0.0"/>        <!-- Te at τ_B = a/2 (a=0.6462 nm) -->
+  </atoms>
+
+  <!-- Six nearest A→B displacements δ_j = ±a/2 êx, ±a/2 êy, ±a/2 êz -->
+  <neighbors>
+    <bond from="A" to="B" delta=" 0.3231  0.0     0.0    "/>
+    <bond from="A" to="B" delta="-0.3231  0.0     0.0    "/>
+    <bond from="A" to="B" delta=" 0.0     0.3231  0.0    "/>
+    <bond from="A" to="B" delta=" 0.0    -0.3231  0.0    "/>
+    <bond from="A" to="B" delta=" 0.0     0.0     0.3231 "/>
+    <bond from="A" to="B" delta=" 0.0     0.0    -0.3231 "/>
+  </neighbors>
+
+  <!-- Onsite energies (eV) -->
+  <onsite>
+    <A s="-1.323" p="9.168" d_t2g="-11.043" d_eg="-10.958"/>
+    <B s="-4.409" p="4.733" d_t2g="13.123"  d_eg="16.329"/>
+  </onsite>
+
+  <!-- Slater–Koster parameters (heteropolar Pb–Te, in eV) -->
+  <sk builtin="true">
+    <AB
+      ss_sigma="-0.4806"
+      sp_sigma=" 0.9764"
+      ps_sigma=" 0.8047"
+      pp_sigma=" 1.8314"
+      pp_pi   ="-0.3847"
+      sd_sigma="-1.0246"
+      ds_sigma="-0.2276"
+      pd_sigma="-2.165"
+      pd_pi   =" 0.854"
+      dp_sigma=" 0.536"
+      dp_pi   =" 0.174"
+      dd_sigma="-0.778"
+      dd_pi   =" 0.340"
+      dd_delta="-0.069"
+    />
+    <BA
+      ss_sigma="-0.4806"
+      sp_sigma=" 0.9764"
+      ps_sigma=" 0.8047"
+      pp_sigma=" 1.8314"
+      pp_pi   ="-0.3847"
+      sd_sigma="-1.0246"
+      ds_sigma="-0.2276"
+      pd_sigma="-2.165"
+      pd_pi   =" 0.854"
+      dp_sigma=" 0.536"
+      dp_pi   =" 0.174"
+      dd_sigma="-0.778"
+      dd_pi   =" 0.340"
+      dd_delta="-0.069"
+    />
+  </sk>
+</dory>
