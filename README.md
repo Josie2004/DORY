@@ -1,8 +1,8 @@
 # DORY – Tight-Binding Bandstructure Runner
 
-This project provides a minimal framework for building and plotting **tight-binding (TB) Hamiltonians** for 3D crystals with a **two-atom basis** (e.g. diamond, zincblende, rocksalt).  
+This project provides a minimal framework for building and plotting **tight-binding (TB) Hamiltonians** for 3D crystals with a **two-atom basis** (e.g. diamond, zincblende, rocksalt). The Tight Binding Model is officially DORY. The Valley Model is not DORY but it is another framework which is ccurrrently being developed within this codebase. 
 
-The first version is focused on 3D **sp³d⁵** and **sp³** models defined in simple XML files.
+The first version is focused on 3D **sp³d⁵** and **sp³** models defined in simple XML files. Now we also have **sp³d⁵s_star** 
 
 ---
 
