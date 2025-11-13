@@ -1,0 +1,17 @@
+
+<root>
+  <valley_model enabled="true" spin="false">
+    <ordering>+x,-x,+y,-y,+z,-z</ordering>
+    <baseline_meV>0</baseline_meV>
+    <delta_c units="meV">2.5</delta_c>
+    <delta>0.05</delta>
+    <valley_shifts units="meV">
+      <Ex>0.0</Ex>
+      <Ex_bar>0.0</Ex_bar>
+      <Ey>0.0</Ey>
+      <Ey_bar>0.0</Ey_bar>
+      <Ez>0.0</Ez>
+      <Ez_bar>0.0</Ez_bar>
+    </valley_shifts>
+  </valley_model>
+</root>
